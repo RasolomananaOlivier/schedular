@@ -1,11 +1,11 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: olivier
-  Date: 7/2/24
-  Time: 9:03 AM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.List" %>
+<%@ page import="com.project.l3.schedular.model.Department" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%
+    Department department = (Department) request.getAttribute("department");
+%>
+
 <html lang="fr">
 <head>
     <!-- Required meta tags -->
@@ -26,16 +26,23 @@
 
     <form action="update" method="post">
         <div class="mb-6 flex flex-col gap-5">
+            <input hidden="hidden" name="id" value="<%= department.getId() %>" />
+
             <div>
                 <label for="departmentName"
                        class="mb-2 block text-sm font-medium text-gray-900">Nom du département</label>
                 <input type="text" id="departmentName" name="name"
+                       value="<%= department.getName() %>"
                        class="bg-gray block w-full rounded-lg border border-gray-300 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500"
                        placeholder="ex: Informatique" required/>
             </div>
         </div>
 
         <div class="flex justify-end">
+            <a href="<%= request.getContextPath() + "/departments"%>"
+               class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm px-4 py-2 me-2">
+                Retour
+            </a>
             <button type="submit"
                     class="w-full rounded-full bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 Confirmer

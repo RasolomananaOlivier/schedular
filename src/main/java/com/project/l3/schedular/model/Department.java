@@ -1,6 +1,7 @@
 package com.project.l3.schedular.model;
 
 import jakarta.persistence.*;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;
 
@@ -38,5 +39,17 @@ public class Department {
 
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
+    }
+
+    public static Department fromRequest(HttpServletRequest request) {
+        Department department = new Department();
+
+        if(request.getParameter("id") != null) {
+            department.setId(Integer.parseInt(request.getParameter("id")));
+        }
+
+        department.setName(request.getParameter("name"));
+
+        return department;
     }
 }

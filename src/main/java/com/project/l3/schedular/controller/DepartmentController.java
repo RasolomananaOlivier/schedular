@@ -1,14 +1,16 @@
 package com.project.l3.schedular.controller;
 
-import java.io.*;
-import java.util.List;
-
 import com.project.l3.schedular.model.Department;
 import com.project.l3.schedular.repository.department.DepartmentRepository;
 import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+import java.util.List;
 
 @WebServlet(name = "departmentController", value = "/departments/*")
 public class DepartmentController extends HttpServlet {
@@ -43,7 +45,7 @@ public class DepartmentController extends HttpServlet {
         }
     }
 
-    public  void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String action = request.getPathInfo();
 
         if (action != null) {
@@ -64,15 +66,51 @@ public class DepartmentController extends HttpServlet {
     }
 
     private void listDepartments(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.getRequestDispatcher( "/WEB-INF/views/departments/index.jsp")
+        List<Department> departments = repository.getDepartments();
+
+        request.setAttribute("departments", departments);
+
+        request.getRequestDispatcher("/WEB-INF/views/departments/index.jsp")
                 .forward(request, response);
     }
-    private  void showNewForm(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.getRequestDispatcher( "/WEB-INF/views/departments/create.jsp")
+
+    private void showNewForm(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        request.getRequestDispatcher("/WEB-INF/views/departments/create.jsp")
                 .forward(request, response);
     }
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws IOException {}
-    private void deleteDepartment(HttpServletRequest request, HttpServletResponse response) throws IOException {}
-    private void storeDepartment(HttpServletRequest request, HttpServletResponse response) throws IOException {}
-    private void updateDepartment(HttpServletRequest request, HttpServletResponse response) throws IOException {}
+
+    private void showEditForm(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        int departmentId = Integer.parseInt(request.getParameter("departmentId"));
+
+        Department department = repository.getDepartment(departmentId);
+
+        request.setAttribute("department", department);
+
+        request.getRequestDispatcher("/WEB-INF/views/departments/edit.jsp")
+                .forward(request, response);
+    }
+
+    private void deleteDepartment(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        int departmentId = Integer.parseInt(request.getParameter("departmentId"));
+
+        repository.deleteDepartment(departmentId);
+
+        response.sendRedirect(request.getContextPath() + "/departments");
+    }
+
+    private void storeDepartment(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        Department department = Department.fromRequest(request);
+
+        repository.createDepartment(department);
+
+        response.sendRedirect(request.getContextPath() + "/departments");
+    }
+
+    private void updateDepartment(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        Department department = Department.fromRequest(request);
+
+        repository.updateDepartment(department);
+
+        response.sendRedirect(request.getContextPath() + "/departments");
+    }
 }
