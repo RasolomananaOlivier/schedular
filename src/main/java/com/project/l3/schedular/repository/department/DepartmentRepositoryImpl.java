@@ -55,6 +55,9 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
         EntityManager em = Context.getEntityManager();
 
         Department department = em.find(Department.class, id);
+
+        em.getTransaction().begin();
         em.remove(department);
+        em.getTransaction().commit();
     }
 }

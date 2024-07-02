@@ -22,7 +22,6 @@ public class DepartmentController extends HttpServlet {
 
         List<Department> departments = repository.getDepartments();
 
-        // Hello
         PrintWriter out = response.getWriter();
         out.println("<html><body>");
         out.println("<h1>" + departments.size() + "</h1>");
