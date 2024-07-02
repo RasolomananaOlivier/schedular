@@ -1,5 +1,6 @@
 package com.project.l3.schedular.repository.employee;
 
+import com.project.l3.schedular.model.Department;
 import com.project.l3.schedular.model.Employee;
 import com.project.l3.schedular.persistence.Context;
 import jakarta.ejb.Stateless;
@@ -25,8 +26,15 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public Employee createEmployee(Employee employee) {
+    public Employee createEmployee(Employee employee, int departmentId) {
         EntityManager em = Context.getEntityManager();
+
+        Department department = em.find(Department.class, departmentId);
+        if (department == null) {
+            throw new IllegalArgumentException("Department not found with ID: " + departmentId);
+        }
+
+        employee.setDepartment(department);
 
         em.getTransaction().begin();
         em.persist(employee);

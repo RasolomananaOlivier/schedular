@@ -9,7 +9,7 @@ import java.util.List;
 public interface EmployeeRepository {
     List<Employee> getEmployees();
     Employee getEmployee(int id);
-    Employee createEmployee(Employee employee);
+    Employee createEmployee(Employee employee, int departmentId);
     Employee updateEmployee(Employee employee);
     void deleteEmployee(int id);
 }
