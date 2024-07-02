@@ -1,11 +1,10 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: olivier
-  Date: 7/2/24
-  Time: 9:03 AM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="com.project.l3.schedular.model.Department" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%
+    List<Department> departments = (List<Department>) request.getAttribute("departments");
+%>
 <!doctype html>
 <html lang="fr">
 <head>
@@ -23,10 +22,11 @@
 
 <div class="flex items-end justify-between">
     <p class="text-xl">
-        L'entreprise compte actuellement 8 départements.
+        L'entreprise compte actuellement <%= departments.size() %> départements.
     </p>
 
-    <a href="departments/new" class="me-2 rounded-full bg-gray-800 px-4 py-2 text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700">
+    <a href="departments/new"
+       class="me-2 rounded-full bg-gray-800 px-4 py-2 text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700">
         Nouveau département
     </a>
 </div>
@@ -43,15 +43,21 @@
         </tr>
         </thead>
         <tbody>
+        <% for (Department department : departments) { %>
+
         <tr class="border-b bg-white hover:bg-gray-50">
-            <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900">Apple MacBook Pro 17"</th>
-            <td class="px-6 py-4">Silver</td>
+            <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900"><%= department.getId() %></th>
+            <td class="px-6 py-4"><%= department.getName() %></td>
 
             <td class="flex justify-end px-6 py-4 text-right">
-                <a href="" class="mb-2 me-2 rounded-full border border-red-700 px-4 py-2 text-center text-sm font-medium text-red-700 hover:bg-red-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 dark:hover:text-white dark:focus:ring-red-900">Supprimer</a>
-                <a href="#" class="mb-2 me-2 rounded-full bg-gray-800 px-4 py-2 text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700">Modifier</a>
+                <a href="<%= request.getContextPath() + "/departments/delete?departmentId=" + department.getId() %>"
+                   class="mb-2 me-2 rounded-full border border-red-700 px-4 py-2 text-center text-sm font-medium text-red-700 hover:bg-red-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 dark:hover:text-white dark:focus:ring-red-900">Supprimer</a>
+                <a href="<%= request.getContextPath() + "/departments/edit?departmentId=" + department.getId() %>"
+                   class="mb-2 me-2 rounded-full bg-gray-800 px-4 py-2 text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700">Modifier</a>
             </td>
         </tr>
+
+        <% } %>
         </tbody>
     </table>
 </div>
