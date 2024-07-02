@@ -1,6 +1,7 @@
 package com.project.l3.schedular.model;
 
 import jakarta.persistence.*;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Entity
 @Table(name = "employees")
@@ -67,5 +68,24 @@ public class Employee {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+    public static Employee fromRequest(HttpServletRequest request) {
+        Employee employee = new Employee();
+
+        if(request.getParameter("id") != null) {
+            employee.setId(Integer.parseInt(request.getParameter("id")));
+        }
+
+        employee.setLastName(request.getParameter("lastName"));
+        employee.setFirstName(request.getParameter("firstName"));
+        employee.setEmail(request.getParameter("email"));
+        employee.setPhone(request.getParameter("phone"));
+
+        return employee;
     }
 }
