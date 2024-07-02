@@ -28,6 +28,7 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     @Override
     public Employee createEmployee(Employee employee, int departmentId) {
         EntityManager em = Context.getEntityManager();
+        em.getTransaction().begin();
 
         Department department = em.find(Department.class, departmentId);
         if (department == null) {
@@ -36,7 +37,6 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
 
         employee.setDepartment(department);
 
-        em.getTransaction().begin();
         em.persist(employee);
         em.getTransaction().commit();
 
@@ -44,10 +44,17 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
     }
 
     @Override
-    public Employee updateEmployee(Employee employee) {
+    public Employee updateEmployee(Employee employee, int departmentId) {
         EntityManager em = Context.getEntityManager();
-
         em.getTransaction().begin();
+
+        Department department = em.find(Department.class, departmentId);
+        if (department == null) {
+            throw new IllegalArgumentException("Department not found with ID: " + departmentId);
+        }
+
+        employee.setDepartment(department);
+
         em.merge(employee);
         em.getTransaction().commit();
 

@@ -10,6 +10,6 @@ public interface EmployeeRepository {
     List<Employee> getEmployees();
     Employee getEmployee(int id);
     Employee createEmployee(Employee employee, int departmentId);
-    Employee updateEmployee(Employee employee);
+    Employee updateEmployee(Employee employee, int departmentId);
     void deleteEmployee(int id);
 }

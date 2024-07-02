@@ -116,7 +116,9 @@ public class EmployeeController extends HttpServlet {
     private void updateResource(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         Employee employee = Employee.fromRequest(request);
 
-        repository.updateEmployee(employee);
+        int departmentId = Integer.parseInt(request.getParameter("departmentId"));
+
+        repository.updateEmployee(employee, departmentId);
 
         response.sendRedirect(request.getContextPath() + "/employees");
     }

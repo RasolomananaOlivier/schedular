@@ -18,7 +18,7 @@ public class Employee {
 
     private String phone;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
 
