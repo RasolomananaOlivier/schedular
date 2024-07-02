@@ -1,9 +1,7 @@
-package com.project.l3.schedular.repository.meetingRoom;
+package com.project.l3.schedular.repository.agendaItem;
 
 import com.project.l3.schedular.model.AgendaItem;
-import com.project.l3.schedular.model.Meeting;
 import com.project.l3.schedular.persistence.Context;
-import com.project.l3.schedular.repository.AgendaItemRepository;
 import jakarta.persistence.EntityManager;
 
 import java.util.List;
