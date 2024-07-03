@@ -1,5 +1,6 @@
 package com.project.l3.schedular.repository.meeting;
 
+import com.project.l3.schedular.model.Employee;
 import com.project.l3.schedular.model.Meeting;
 import com.project.l3.schedular.model.MeetingRoom;
 import com.project.l3.schedular.persistence.Context;
@@ -26,10 +27,24 @@ public class MeetingRepositoryImpl implements MeetingRepository {
     }
 
     @Override
-    public Meeting createMeeting(Meeting meeting) {
+    public Meeting createMeeting(Meeting meeting, int employId, int roomId) {
         EntityManager em = Context.getEntityManager();
 
         em.getTransaction().begin();
+
+        Employee employee  = em.find(Employee.class, employId);
+        if(employee == null) {
+            throw  new IllegalArgumentException("Employee not found with id " + employId);
+        }
+
+        MeetingRoom meetingRoom = em.find(MeetingRoom.class, roomId);
+        if(meetingRoom == null) {
+            throw  new IllegalArgumentException("Meeting room not found with id " + roomId);
+        }
+
+        meeting.setRoom(meetingRoom);
+        meeting.setOrganizer(employee);
+
         em.persist(meeting);
         em.getTransaction().commit();
 
@@ -37,10 +52,24 @@ public class MeetingRepositoryImpl implements MeetingRepository {
     }
 
     @Override
-    public Meeting updateMeeting(Meeting meeting) {
+    public Meeting updateMeeting(Meeting meeting, int employId, int roomId) {
         EntityManager em = Context.getEntityManager();
 
         em.getTransaction().begin();
+
+        Employee employee  = em.find(Employee.class, employId);
+        if(employee == null) {
+            throw  new IllegalArgumentException("Employee not found with id " + employId);
+        }
+
+        MeetingRoom meetingRoom = em.find(MeetingRoom.class, roomId);
+        if(meetingRoom == null) {
+            throw  new IllegalArgumentException("Meeting room not found with id " + roomId);
+        }
+
+        meeting.setRoom(meetingRoom);
+        meeting.setOrganizer(employee);
+
         em.merge(meeting);
         em.getTransaction().commit();
 

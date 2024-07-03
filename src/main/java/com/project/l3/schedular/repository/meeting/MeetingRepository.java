@@ -9,7 +9,7 @@ import java.util.List;
 public interface MeetingRepository {
     List<Meeting> getMeetings();
     Meeting getMeeting(int id);
-    Meeting createMeeting(Meeting meeting);
-    Meeting updateMeeting(Meeting meeting);
+    Meeting createMeeting(Meeting meeting,  int employId, int roomId);
+    Meeting updateMeeting(Meeting meeting,  int employId, int roomId);
     void deleteMeeting(int id);
 }

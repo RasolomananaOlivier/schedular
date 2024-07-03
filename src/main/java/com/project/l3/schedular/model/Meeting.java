@@ -1,6 +1,8 @@
 package com.project.l3.schedular.model;
 
+import com.project.l3.schedular.util.DateParser;
 import jakarta.persistence.*;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Date;
 
@@ -19,7 +21,7 @@ public class Meeting {
     @JoinColumn(name = "room_id")
     private MeetingRoom room;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "organizer_id")
     private Employee organizer;
 
@@ -61,5 +63,22 @@ public class Meeting {
 
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
+    }
+
+    public static Meeting fromRequest(HttpServletRequest request){
+        Meeting meeting = new Meeting();
+
+        if(request.getParameter("id") != null) {
+            meeting.setId(Integer.parseInt(request.getParameter("id")));
+        }
+
+        String startTime = request.getParameter("startTime");
+        String endTime = request.getParameter("endTime");
+        String date   = request.getParameter("date");
+
+        meeting.setStartTime(DateParser.fromDateWithHour(date, startTime));
+        meeting.setEndTime(DateParser.fromDateWithHour(date, endTime));
+
+        return meeting;
     }
 }
