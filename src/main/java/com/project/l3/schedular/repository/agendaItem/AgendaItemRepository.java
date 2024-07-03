@@ -7,9 +7,9 @@ import java.util.List;
 
 @Local
 public interface AgendaItemRepository {
-    public List<AgendaItem> getAgendaItems();
+    public List<AgendaItem> getAgendaItems(int meetingId);
     public AgendaItem getAgendaItem(int id);
-    public AgendaItem createAgendaItem(AgendaItem agendaItem);
-    public AgendaItem updateAgendaItem(AgendaItem agendaItem);
+    public AgendaItem createAgendaItem(AgendaItem agendaItem, int meetingId, int presenterId);
+    public AgendaItem updateAgendaItem(AgendaItem agendaItem, int meetingId, int presenterId);
     public void deleteAgendaItem(int id);
 }

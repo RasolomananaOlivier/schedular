@@ -1,6 +1,7 @@
 package com.project.l3.schedular.model;
 
 import jakarta.persistence.*;
+import jakarta.servlet.http.HttpServletRequest;
 
 @Entity
 @Table(name = "agenda_items")
@@ -49,5 +50,17 @@ public class AgendaItem {
 
     public void setPresenter(Employee presenter) {
         this.presenter = presenter;
+    }
+
+    public static AgendaItem fromRequest(HttpServletRequest request) {
+        AgendaItem item = new AgendaItem();
+
+        item.setDescription(request.getParameter("description"));
+
+        if(request.getParameter("id") != null){
+            item.setId(Integer.parseInt(request.getParameter("id")));
+        }
+
+        return item;
     }
 }

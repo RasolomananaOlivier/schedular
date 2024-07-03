@@ -71,10 +71,16 @@
                 <%= meeting.getOrganizer().getFullName() %>
             </td>
             <td class="flex justify-end px-6 py-4 text-right">
+                <a href="<%= request.getContextPath() + "/agendas?meetingId=" + meeting.getId() %>"
+                   class="mb-2 me-2 rounded-full border border-gray-700 px-4 py-2 text-center text-sm font-medium text-gray-700 hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-gray-300">
+                    Agenda
+                </a>
                 <a href="<%= request.getContextPath() + "/meetings/delete?meetingId=" + meeting.getId() %>"
-                   class="mb-2 me-2 rounded-full border border-red-700 px-4 py-2 text-center text-sm font-medium text-red-700 hover:bg-red-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 dark:hover:text-white dark:focus:ring-red-900">Supprimer</a>
+                   class="mb-2 me-2 rounded-full border border-red-700 px-4 py-2 text-center text-sm font-medium text-red-700 hover:bg-red-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300">
+                    Supprimer
+                </a>
                 <a href="<%= request.getContextPath() + "/meetings/edit?meetingId=" + meeting.getId() %>"
-                   class="mb-2 me-2 rounded-full bg-gray-800 px-4 py-2 text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700">Modifier</a>
+                   class="mb-2 me-2 rounded-full bg-gray-800 px-4 py-2 text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300">Modifier</a>
             </td>
         </tr>
 
