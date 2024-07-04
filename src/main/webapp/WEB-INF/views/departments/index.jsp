@@ -18,6 +18,8 @@
     <title>Départements</title>
 </head>
 <body class="py-4 px-5">
+<jsp:include page="/WEB-INF/components/header.jsp" />
+
 <h1 class="mb-4 text-3xl font-extrabold text-gray-900 md:text-5xl lg:text-6xl">Départements.</h1>
 
 <div class="flex items-end justify-between">

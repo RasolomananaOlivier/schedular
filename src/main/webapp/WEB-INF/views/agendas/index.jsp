@@ -22,6 +22,7 @@
     <title>Agendas</title>
 </head>
 <body class="py-4 px-5">
+<jsp:include page="/WEB-INF/components/header.jsp" />
 <h1 class="mb-4 text-3xl font-extrabold text-gray-900 md:text-4xl lg:text-5xl">Agenda du meeting du <%= DateFormater.format(meeting.getStartTime()) %> .</h1>
 
 <div class="flex items-end justify-between">
@@ -29,7 +30,7 @@
         Le meeting compte actuellement <%= agendas.size() %> sujet(s) de discussion.
     </p>
 
-    <a href=<%= "agendas/new?meetingId=" + meeting.getId() %>
+    <a href="<%= request.getContextPath() + "/agendas/new?meetingId=" + meeting.getId() %>"
        class="me-2 rounded-full bg-gray-800 px-4 py-2 text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700">
         Nouveau sujet de discussion
     </a>

@@ -15,6 +15,7 @@
     <title>Nouvelle salle</title>
 </head>
 <body>
+<jsp:include page="/WEB-INF/components/header.jsp" />
 
 <main class="px-3 py-5 sm:px-40 md:px-60 lg:px-80">
     <h1 class="text-3xl font-medium">Modifier une salle</h1>
