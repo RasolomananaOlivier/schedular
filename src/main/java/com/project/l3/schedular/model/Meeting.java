@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "meetings")
@@ -24,6 +25,17 @@ public class Meeting {
     @ManyToOne
     @JoinColumn(name = "organizer_id")
     private Employee organizer;
+
+    @OneToMany(mappedBy = "meeting", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Attendance> attendances;
+
+    public List<Attendance> getAttendances() {
+        return attendances;
+    }
+
+    public void setAttendances(List<Attendance> attendances) {
+        this.attendances = attendances;
+    }
 
     public Date getEndTime() {
         return endTime;

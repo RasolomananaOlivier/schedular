@@ -5,6 +5,7 @@ import com.project.l3.schedular.model.Employee;
 import com.project.l3.schedular.persistence.Context;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 
 import java.util.List;
 
@@ -59,6 +60,47 @@ public class EmployeeRepositoryImpl implements EmployeeRepository {
         em.getTransaction().commit();
 
         return employee;
+    }
+
+    @Override
+    public List<Employee> getEmployeesByIds(List<Integer> ids) {
+        EntityManager em = Context.getEntityManager();
+
+        if (ids == null || ids.isEmpty()) {
+            return em.createQuery("SELECT e FROM Employee e", Employee.class)
+                    .getResultList();
+        }
+
+        String jpql = "SELECT e FROM Employee e WHERE e.id IN :ids";
+
+        TypedQuery<Employee> query = em.createQuery(jpql, Employee.class);
+
+        query.setParameter("ids", ids);
+
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Employee> getEmployeesApart(List<Integer> excludedIds) {
+        EntityManager em = Context.getEntityManager();
+
+        if (excludedIds == null || excludedIds.isEmpty()) {
+            // If there are no excluded IDs, return all employees
+            return em.createQuery("SELECT e FROM Employee e", Employee.class)
+                    .getResultList();
+        }
+
+        // Constructing the JPQL query with a WHERE clause to exclude specific IDs
+        String jpql = "SELECT e FROM Employee e WHERE e.id NOT IN :excludedIds";
+
+        // Creating a typed query
+        TypedQuery<Employee> query = em.createQuery(jpql, Employee.class);
+
+        // Setting the parameter for the excluded IDs
+        query.setParameter("excludedIds", excludedIds);
+
+        // Executing the query and returning the result list
+        return query.getResultList();
     }
 
     @Override

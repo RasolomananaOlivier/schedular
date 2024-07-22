@@ -11,5 +11,7 @@ public interface EmployeeRepository {
     Employee getEmployee(int id);
     Employee createEmployee(Employee employee, int departmentId);
     Employee updateEmployee(Employee employee, int departmentId);
+    List<Employee> getEmployeesByIds(List<Integer> ids);
+    List<Employee> getEmployeesApart(List<Integer> excludedIds);
     void deleteEmployee(int id);
 }
