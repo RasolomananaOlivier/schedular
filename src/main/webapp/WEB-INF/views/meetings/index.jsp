@@ -20,6 +20,8 @@
     <title>Meetings</title>
 </head>
 <body class="py-4 px-5">
+<jsp:include page="/WEB-INF/components/header.jsp" />
+
 <h1 class="mb-4 text-3xl font-extrabold text-gray-900 md:text-5xl lg:text-6xl">Meetings.</h1>
 
 <div class="flex items-end justify-between">
@@ -27,7 +29,7 @@
         L'entreprise compte actuellement <%= meetings.size() %> meetings.
     </p>
 
-    <a href="meetings/new"
+    <a href="<%= request.getContextPath() + "/meetings/new" %>"
        class="me-2 rounded-full bg-gray-800 px-4 py-2 text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700">
         Nouveau meeting
     </a>
@@ -74,6 +76,10 @@
                 <a href="<%= request.getContextPath() + "/agendas?meetingId=" + meeting.getId() %>"
                    class="mb-2 me-2 rounded-full border border-gray-700 px-4 py-2 text-center text-sm font-medium text-gray-700 hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-gray-300">
                     Agenda
+                </a>
+                <a href="<%= request.getContextPath() + "/attendances?meetingId=" + meeting.getId() %>"
+                   class="mb-2 me-2 rounded-full border border-gray-700 px-4 py-2 text-center text-sm font-medium text-gray-700 hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-gray-300">
+                    Invités
                 </a>
                 <a href="<%= request.getContextPath() + "/meetings/delete?meetingId=" + meeting.getId() %>"
                    class="mb-2 me-2 rounded-full border border-red-700 px-4 py-2 text-center text-sm font-medium text-red-700 hover:bg-red-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300">

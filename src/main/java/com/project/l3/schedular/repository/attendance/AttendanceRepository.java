@@ -12,4 +12,5 @@ public interface AttendanceRepository {
     Attendance createAttendance(Attendance attendance);
     Attendance updateAttendance(Attendance attendance);
     void deleteAttendance(int id);
+    void deleteAttendances(List<Integer> ids);
 }

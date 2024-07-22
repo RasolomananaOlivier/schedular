@@ -21,6 +21,8 @@
     <title>Salle de meeting</title>
 </head>
 <body class="py-4 px-5">
+<jsp:include page="/WEB-INF/components/header.jsp" />
+
 <h1 class="mb-4 text-3xl font-extrabold text-gray-900 md:text-5xl lg:text-6xl">Salles de meeting.</h1>
 
 <div class="flex items-end justify-between">
@@ -28,7 +30,7 @@
         L'entreprise compte actuellement <%= rooms.size() %> salles de meeting.
     </p>
 
-    <a href="rooms/new"
+    <a href="<%= request.getContextPath() + "/rooms/new" %>"
        class="me-2 rounded-full bg-gray-800 px-4 py-2 text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700">
         Nouvelle salle
     </a>

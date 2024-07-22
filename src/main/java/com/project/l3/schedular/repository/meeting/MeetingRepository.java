@@ -12,4 +12,5 @@ public interface MeetingRepository {
     Meeting createMeeting(Meeting meeting,  int employId, int roomId);
     Meeting updateMeeting(Meeting meeting,  int employId, int roomId);
     void deleteMeeting(int id);
+    void updateMeeting(Meeting meeting);
 }

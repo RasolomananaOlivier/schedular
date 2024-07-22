@@ -86,4 +86,14 @@ public class MeetingRepositoryImpl implements MeetingRepository {
         em.remove(meeting);
         em.getTransaction().commit();
     }
+
+    @Override
+    public void updateMeeting(Meeting meeting) {
+        EntityManager em = Context.getEntityManager();
+
+        em.getTransaction().begin();
+        em.merge(meeting);
+        em.getTransaction().commit();
+
+    }
 }

@@ -1,9 +1,10 @@
 package com.project.l3.schedular.controller;
 
-import com.project.l3.schedular.model.Department;
 import com.project.l3.schedular.model.Employee;
 import com.project.l3.schedular.repository.department.DepartmentRepository;
+import com.project.l3.schedular.repository.department.DepartmentRepositoryImpl;
 import com.project.l3.schedular.repository.employee.EmployeeRepository;
+import com.project.l3.schedular.repository.employee.EmployeeRepositoryImpl;
 import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,16 +13,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name = "employeeController", value = "/employees/*")
 public class EmployeeController extends HttpServlet {
     // Use a stateless bean as a repository to handle business logic
     // It will be injected by the application container
     @EJB
-    private EmployeeRepository repository;
+    private EmployeeRepository repository = new EmployeeRepositoryImpl();
     @EJB
-    private DepartmentRepository departmentRepository;
+    private DepartmentRepository departmentRepository = new DepartmentRepositoryImpl();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html");

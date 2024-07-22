@@ -2,8 +2,11 @@ package com.project.l3.schedular.controller;
 
 import com.project.l3.schedular.model.AgendaItem;
 import com.project.l3.schedular.repository.agendaItem.AgendaItemRepository;
+import com.project.l3.schedular.repository.agendaItem.AgendaItemRepositoryImpl;
 import com.project.l3.schedular.repository.employee.EmployeeRepository;
+import com.project.l3.schedular.repository.employee.EmployeeRepositoryImpl;
 import com.project.l3.schedular.repository.meeting.MeetingRepository;
+import com.project.l3.schedular.repository.meeting.MeetingRepositoryImpl;
 import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,11 +21,11 @@ public class AgendaItemController extends HttpServlet {
     // Use a stateless bean as a repository to handle business logic
     // It will be injected by the application container
     @EJB
-    private MeetingRepository meetingRepository;
+    private MeetingRepository meetingRepository = new MeetingRepositoryImpl();
     @EJB
-    private EmployeeRepository employeeRepository;
+    private EmployeeRepository employeeRepository = new EmployeeRepositoryImpl();
     @EJB
-    private AgendaItemRepository agendaItemRepository;
+    private AgendaItemRepository agendaItemRepository = new AgendaItemRepositoryImpl();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String action = request.getPathInfo();

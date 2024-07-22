@@ -3,6 +3,7 @@ package com.project.l3.schedular.controller;
 import com.project.l3.schedular.model.Employee;
 import com.project.l3.schedular.model.MeetingRoom;
 import com.project.l3.schedular.repository.meetingRoom.MeetingRoomRepository;
+import com.project.l3.schedular.repository.meetingRoom.MeetingRoomRepositoryImpl;
 import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,7 +18,7 @@ public class MeetingRoomController extends HttpServlet {
     // Use a stateless bean as a repository to handle business logic
     // It will be injected by the application container
     @EJB
-    private MeetingRoomRepository repository;
+    private MeetingRoomRepository repository = new MeetingRoomRepositoryImpl();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String action = request.getPathInfo();

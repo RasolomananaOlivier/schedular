@@ -1,7 +1,7 @@
-
 <%@ page import="java.util.List" %>
 <%@ page import="com.project.l3.schedular.model.Employee" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" %>
 
 <%
     List<Employee> employees = (List<Employee>) request.getAttribute("employees");
@@ -20,6 +20,7 @@
     <title>Employées</title>
 </head>
 <body class="py-4 px-5">
+<jsp:include page="/WEB-INF/components/header.jsp"/>
 <h1 class="mb-4 text-3xl font-extrabold text-gray-900 md:text-5xl lg:text-6xl">Employées.</h1>
 
 <div class="flex items-end justify-between">
@@ -27,7 +28,7 @@
         L'entreprise compte actuellement <%= employees.size() %> employés.
     </p>
 
-    <a href="employees/new"
+    <a href="<%= request.getContextPath() + "/employees/new" %>"
        class="me-2 rounded-full bg-gray-800 px-4 py-2 text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700">
         Nouveau employé
     </a>
@@ -51,11 +52,16 @@
         <% for (Employee employee : employees) { %>
 
         <tr class="border-b bg-white hover:bg-gray-50">
-            <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900"><%= employee.getId() %></th>
-            <td class="px-6 py-4"><%= employee.getFullName() %></td>
-            <td class="px-6 py-4"><%= employee.getEmail() %></td>
-            <td class="px-6 py-4"><%= employee.getPhone() %></td>
-            <td class="px-6 py-4"><%= employee.getDepartment().getName() %></td>
+            <th scope="row" class="whitespace-nowrap px-6 py-4 font-medium text-gray-900"><%= employee.getId() %>
+            </th>
+            <td class="px-6 py-4"><%= employee.getFullName() %>
+            </td>
+            <td class="px-6 py-4"><%= employee.getEmail() %>
+            </td>
+            <td class="px-6 py-4"><%= employee.getPhone() %>
+            </td>
+            <td class="px-6 py-4"><%= employee.getDepartment().getName() %>
+            </td>
 
             <td class="flex justify-end px-6 py-4 text-right">
                 <a href="<%= request.getContextPath() + "/employees/delete?employeeId=" + employee.getId() %>"

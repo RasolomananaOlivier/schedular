@@ -55,4 +55,18 @@ public class AttendanceRepositoryImpl implements AttendanceRepository{
         em.remove(attendance);
         em.getTransaction().commit();
     }
+
+    @Override
+    public void deleteAttendances(List<Integer> ids) {
+        EntityManager em = Context.getEntityManager();
+
+        em.getTransaction().begin();
+
+        for (Integer id : ids) {
+            Attendance attendance = em.find(Attendance.class, id);
+            em.remove(attendance);
+        }
+
+        em.getTransaction().commit();
+    }
 }

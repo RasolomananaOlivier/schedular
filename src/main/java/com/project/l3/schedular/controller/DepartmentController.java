@@ -2,6 +2,7 @@ package com.project.l3.schedular.controller;
 
 import com.project.l3.schedular.model.Department;
 import com.project.l3.schedular.repository.department.DepartmentRepository;
+import com.project.l3.schedular.repository.department.DepartmentRepositoryImpl;
 import jakarta.ejb.EJB;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,7 +19,7 @@ public class DepartmentController extends HttpServlet {
     // Use a stateless bean as a repository to handle business logic
     // It will be injected by the application container
     @EJB
-    private DepartmentRepository repository;
+    private DepartmentRepository repository = new DepartmentRepositoryImpl();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         response.setContentType("text/html");
