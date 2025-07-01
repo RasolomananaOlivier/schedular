@@ -23,6 +23,7 @@
 </head>
 <body class="py-4 px-5">
 <jsp:include page="/WEB-INF/components/header.jsp" />
+<jsp:include page="/WEB-INF/components/delete-model.jsp" />
 <h1 class="mb-4 text-3xl font-extrabold text-gray-900 md:text-4xl lg:text-5xl">Agenda du meeting du <%= DateFormater.format(meeting.getStartTime()) %> .</h1>
 
 <div class="flex items-end justify-between">
@@ -63,8 +64,15 @@
             </td>
 
             <td class="flex justify-end px-6 py-4 text-right">
-                <a href="<%= request.getContextPath() + "/agendas/delete?agendaItemId=" + agenda.getId() %>"
-                   class="mb-2 me-2 rounded-full border border-red-700 px-4 py-2 text-center text-sm font-medium text-red-700 hover:bg-red-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 dark:hover:text-white dark:focus:ring-red-900">Supprimer</a>
+                <button onclick="
+                    setPopupDescription('Etes-vous sûr de vouloir supprimer le theme \'<%= agenda.getDescription() %>\' de la liste ?');
+                    const deleteHandler = () => {
+                    document.location = '<%= request.getContextPath() + "/agendas/delete?agendaItemId=" + agenda.getId() %>';
+                    };
+                    setDeleteHandler(deleteHandler);
+                    showPopup();
+                        "
+                   class="mb-2 me-2 rounded-full border border-red-700 px-4 py-2 text-center text-sm font-medium text-red-700 hover:bg-red-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 dark:hover:text-white dark:focus:ring-red-900">Supprimer</button>
                 <a href="<%= request.getContextPath() + "/agendas/edit?agendaItemId=" + agenda.getId() %>"
                    class="mb-2 me-2 rounded-full bg-gray-800 px-4 py-2 text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700">Modifier</a>
             </td>

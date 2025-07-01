@@ -21,6 +21,7 @@
 </head>
 <body class="py-4 px-5">
 <jsp:include page="/WEB-INF/components/header.jsp" />
+<jsp:include page="/WEB-INF/components/delete-model.jsp" />
 
 <h1 class="mb-4 text-3xl font-extrabold text-gray-900 md:text-5xl lg:text-6xl">Meetings.</h1>
 
@@ -81,10 +82,17 @@
                    class="mb-2 me-2 rounded-full border border-gray-700 px-4 py-2 text-center text-sm font-medium text-gray-700 hover:bg-gray-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-gray-300">
                     Invités
                 </a>
-                <a href="<%= request.getContextPath() + "/meetings/delete?meetingId=" + meeting.getId() %>"
+                <button onclick="
+                    setPopupDescription('Etes-vous sûr de vouloir supprimer ce meeting de la liste ?');
+                    const deleteHandler = () => {
+                        document.location = '<%= request.getContextPath() + "/meetings/delete?meetingId=" + meeting.getId() %>';
+                    };
+                    setDeleteHandler(deleteHandler);
+                    showPopup();
+                "
                    class="mb-2 me-2 rounded-full border border-red-700 px-4 py-2 text-center text-sm font-medium text-red-700 hover:bg-red-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300">
                     Supprimer
-                </a>
+                </button>
                 <a href="<%= request.getContextPath() + "/meetings/edit?meetingId=" + meeting.getId() %>"
                    class="mb-2 me-2 rounded-full bg-gray-800 px-4 py-2 text-sm font-medium text-white hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300">Modifier</a>
             </td>
